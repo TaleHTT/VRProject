@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LoadSPPBButton : MonoBehaviour
+public class LoadSPPBScene : MonoBehaviour
 {
     private void Awake()
     {

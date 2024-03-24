@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LoadMoriButton : MonoBehaviour
+public class LoadMoriScene : MonoBehaviour
 {
     private void Awake()
     {
