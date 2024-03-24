@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ¹ÜÀíÈ«¾Ö
+/// ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½
 /// </summary>
 public class GameRoot : MonoBehaviour
 {
     public static GameRoot Instance { get; private set; }
     /// <summary>
-    /// ³¡¾°¹ÜÀíÆ÷
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public SceneSystem SceneSystem { get; private set; }
 
