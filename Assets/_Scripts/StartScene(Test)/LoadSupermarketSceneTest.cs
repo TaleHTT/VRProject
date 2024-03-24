@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadSupermarketScene : MyUIElement
+public class LoadSupermarketSceneTest : MyUIElement
 {
     protected override void Awake()
     {

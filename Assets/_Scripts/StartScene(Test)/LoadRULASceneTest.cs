@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadForestScene : MyUIElement
+public class LoadRULASceneTest : MyUIElement
 {
     protected override void Awake()
     {
@@ -13,6 +13,6 @@ public class LoadForestScene : MyUIElement
     protected override void OnButtonClick()
     {
         base.OnButtonClick();
-        SceneManager.LoadScene("ForestScene");
+        SceneManager.LoadScene("RULAScene");
     }
 }
