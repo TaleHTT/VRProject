@@ -230,6 +230,7 @@ namespace HTC.UnityPlugin.VRModuleManagement
 
 #if VIU_STEAMVR_2_1_0_OR_NEWER
             SteamVR_Input.GetActionSet(ACTION_SET_NAME).Activate(SteamVR_Input_Sources.Any, 0, false);
+            Debug.Log($"action : {ACTION_SET_NAME} is {SteamVR_Input.GetActionSet(ACTION_SET_NAME).IsActive()}");
 #else
             var actionSet = SteamVR_Input.GetActionSetFromPath(ACTION_SET_PATH);
             if (actionSet != null)
