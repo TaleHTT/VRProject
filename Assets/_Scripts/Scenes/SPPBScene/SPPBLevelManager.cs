@@ -7,14 +7,18 @@ using UnityEngine.UI;
 
 public class SPPBLevelManager : MonoBehaviour
 {
+    public static SPPBLevelManager instance;
     GameObject VRCamera;
     GameObject EndPoint;
     GameObject SPPBTestStartPanel;
     GameObject SPPBTestStartPanelBG;
     private GameObject VRCanvas;
-    
+    public float testBeginTime;
+    public float testEndTime;
+
     private void Awake()
     {
+        instance = this;
         VRCanvas = GameObject.Find("VRCanvas");
         VRCamera = GameObject.Find("VRCamera");
         EndPoint = GameObject.Find("EndPoint");
@@ -35,6 +39,7 @@ public class SPPBLevelManager : MonoBehaviour
         {
             passOnce = true;
             Debug.Log("SPPB已完成");
+            testEndTime = Time.time;    
             SPPBTestStartPanelBG.GetComponent<Image>().color = new Color(79f/255f, 242f/255f, 28f/255f, 37f/255f);
             SPPBTestStartPanel.GetComponentInChildren<TextMeshProUGUI>().text = "SPPB测试未进行";
             StartCoroutine(ShowCanvas());

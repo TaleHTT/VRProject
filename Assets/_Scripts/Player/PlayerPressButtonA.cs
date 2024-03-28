@@ -8,12 +8,14 @@ using Valve.VR.InteractionSystem;
 
 public class PlayerPressButtonA : MonoBehaviour
 {
+    public static PlayerPressButtonA instance{ get; set; }
     public SteamVR_Action_Boolean input;
     private GameObject VRCanvas;
 
     private void Awake()
     {
         VRCanvas = GameObject.Find("VRCanvas");
+        instance = this;
         
     }
 
@@ -27,6 +29,7 @@ public class PlayerPressButtonA : MonoBehaviour
         if (input.GetStateDown(SteamVR_Input_Sources.Any))
         {
             Debug.Log("Button A is pressed");
+            SPPBLevelManager.instance.testBeginTime = Time.time;
             StartCoroutine(ShowCanvas());
         }
     }
