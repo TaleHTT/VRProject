@@ -206,7 +206,7 @@ namespace SocketWorker
 
             Force_LoadScoreB.GetComponent<TextMeshProUGUI>().text = Score.Force_Load_Score_B.ToString();
             Wrist_ArmScore.GetComponent<TextMeshProUGUI>().text = Score.Wrist_Arm_Score.ToString();
-            NTLScore.GetComponent<TextMeshProUGUI>().text = Score.Neck_Trunk_Leg_Score.ToString();
+            // NTLScore.GetComponent<TextMeshProUGUI>().text = Score.Neck_Trunk_Leg_Score.ToString();
             TableAScore.GetComponent<TextMeshProUGUI>().text = Score.Table_A.ToString();
             TableBScore.GetComponent<TextMeshProUGUI>().text = Score.Table_B.ToString();
 
@@ -217,8 +217,8 @@ namespace SocketWorker
         {
             Upper_Arm_right_angle.GetComponent<TextMeshProUGUI>().text = Angle.Upper_Arm_right_angle.ToString();
             Upper_Arm_left_angle.GetComponent<TextMeshProUGUI>().text = Angle.Upper_Arm_left_angle.ToString();
-            Shoulder_Raised.GetComponent<TextMeshProUGUI>().text = Angle.Shoulder_Raised.ToString();
-            Arm_Abducted.GetComponent<TextMeshProUGUI>().text = Angle.Arm_Abducted.ToString();
+            // Shoulder_Raised.GetComponent<TextMeshProUGUI>().text = Angle.Shoulder_Raised.ToString();
+            // Arm_Abducted.GetComponent<TextMeshProUGUI>().text = Angle.Arm_Abducted.ToString();
             Lower_Arm_right_angle.GetComponent<TextMeshProUGUI>().text = Angle.Lower_Arm_right_angle.ToString();
 
             Lower_Arm_left_angle.GetComponent<TextMeshProUGUI>().text = Angle.Lower_Arm_left_angle.ToString();
@@ -227,9 +227,9 @@ namespace SocketWorker
             // Wrist_Adjustments.GetComponent<TextMeshProUGUI>().text = Angle.Wrist_Adjustments.ToString();
             Neck_angle.GetComponent<TextMeshProUGUI>().text = Angle.Neck_angle.ToString();
 
-            Neck_side_bending.GetComponent<TextMeshProUGUI>().text = Angle.Neck_side_bending.ToString();
+            // Neck_side_bending.GetComponent<TextMeshProUGUI>().text = Angle.Neck_side_bending.ToString();
             Trunk_angle.GetComponent<TextMeshProUGUI>().text = Angle.Trunk_angle.ToString();
-            Trunk_side_bending.GetComponent<TextMeshProUGUI>().text = Angle.Trunk_side_bending.ToString();
+            // Trunk_side_bending.GetComponent<TextMeshProUGUI>().text = Angle.Trunk_side_bending.ToString();
         }
 
         public void FindGameObject()
