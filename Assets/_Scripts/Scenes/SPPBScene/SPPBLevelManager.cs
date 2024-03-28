@@ -7,14 +7,16 @@ using UnityEngine.UI;
 
 public class SPPBLevelManager : MonoBehaviour
 {
-    GameObject MovablePlayer;
+    GameObject VRCamera;
     GameObject EndPoint;
     GameObject SPPBTestStartPanel;
     GameObject SPPBTestStartPanelBG;
-
+    private GameObject VRCanvas;
+    
     private void Awake()
     {
-        MovablePlayer = GameObject.Find("MovablePlayer");
+        VRCanvas = GameObject.Find("VRCanvas");
+        VRCamera = GameObject.Find("VRCamera");
         EndPoint = GameObject.Find("EndPoint");
         SPPBTestStartPanel = GameObject.Find("SPPBTestStartPanel");
         SPPBTestStartPanelBG = GameObject.Find("SPPBTestStartPanelBG");
@@ -26,13 +28,24 @@ public class SPPBLevelManager : MonoBehaviour
         EndDetect();
     }
 
+    private bool passOnce = false;
     public void EndDetect()
     {
-        if(MovablePlayer.transform.position.z < EndPoint.transform.position.z)
+        if(VRCamera.transform.position.z < EndPoint.transform.position.z && !passOnce)
         {
-            Debug.Log("SPPBºÏ≤‚Ω· ¯");
+            passOnce = true;
+            Debug.Log("SPPBÂ∑≤ÂÆåÊàê");
             SPPBTestStartPanelBG.GetComponent<Image>().color = new Color(79f/255f, 242f/255f, 28f/255f, 37f/255f);
-            SPPBTestStartPanel.GetComponentInChildren<TextMeshProUGUI>().text = "SPPB“—ÕÍ≥…";
+            SPPBTestStartPanel.GetComponentInChildren<TextMeshProUGUI>().text = "SPPBÊµãËØïÊú™ËøõË°å";
+            StartCoroutine(ShowCanvas());
         }
+    }
+    
+    IEnumerator ShowCanvas()
+    {
+        VRCanvas.SetActive(true);
+        VRCanvas.GetComponentInChildren<TextMeshProUGUI>().text = "ÊµãËØïÂÆåÊàê";
+        yield return new WaitForSeconds(3);
+        VRCanvas.SetActive(false);
     }
 }
