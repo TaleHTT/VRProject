@@ -312,6 +312,10 @@
       "skeleton": "/skeleton/hand/right"
     },
     {
+      "name": "/actions/htc_viu/in/DirectMovement",
+      "type": "vector2"
+    },
+    {
       "name": "/actions/htc_viu/out/viu_vib_01",
       "type": "vibration",
       "requirement": "optional"
@@ -495,7 +499,8 @@
       "/actions/htc_viu/in/viu_axis_4xy": "Axis4 X&Y",
       "/actions/htc_viu/out/viu_vib_01": "Vibration",
       "/actions/htc_viu/in/viu_skeleton_left": "Skeleton (Left)",
-      "/actions/htc_viu/in/viu_skeleton_right": "Skeleton (Right)"
+      "/actions/htc_viu/in/viu_skeleton_right": "Skeleton (Right)",
+      "/actions/htc_viu/in/DirectMovement": "Direct Movement"
     }
   ]
 }

@@ -377,6 +377,14 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Vector2 DirectMovement
+        {
+            get
+            {
+                return SteamVR_Actions.htc_viu_DirectMovement;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration viu_vib_01
         {
             get
