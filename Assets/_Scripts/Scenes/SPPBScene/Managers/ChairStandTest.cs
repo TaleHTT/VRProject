@@ -17,7 +17,7 @@ public class ChairStandTestManager : MonoBehaviour
     private void Init()
     {
         instance = this;
-        SPPBLevelManager.GaitSpeedTestActionStart += StartTimeRecord;
+        SPPBLevelManager.ChairStandTestActionStart += StartTimeRecord;
     }
 
     public void StartTimeRecord()

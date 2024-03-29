@@ -11,21 +11,18 @@ struct appdata_ceto
 	float2 texcoord : TEXCOORD0;
 };
 
-struct Input
+struct Input 
 {
 	float4 wPos;
 	float4 screenUV;
 	float4 grabUV;
 	float4 texUV;
-	UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
 void OceanVert(inout appdata_ceto v, out Input OUT) 
 {
 	
 	UNITY_INITIALIZE_OUTPUT(Input, OUT);
-	UNITY_SETUP_INSTANCE_ID(v);
-	UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
 	
 	float4 uv = float4(v.vertex.xy, v.texcoord.xy);
 

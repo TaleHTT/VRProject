@@ -24,8 +24,8 @@ public class GaidSpeedTestManager : MonoBehaviour
 
     public void GaitSpeedTestEndPrint()
     {
-        Debug.Log($"startTime: {startTime}");
-        Debug.Log($"endTime: {endTime}");
+        Debug.Log($"<color=red>GaitSpeedTest startTime: {startTime}</color>");
+        Debug.Log($"<color=red>GaitSpeedTest endTime: {endTime}</color>");
     }
     
     public void EndTimeRecord()
