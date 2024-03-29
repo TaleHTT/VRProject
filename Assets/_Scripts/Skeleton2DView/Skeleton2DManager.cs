@@ -109,7 +109,16 @@ namespace _Scripts.Skeleton2DView
                 // ReSharper disable once Unity.PerformanceCriticalCodeInvocation
                 Debug.Log(e);
             }*/
+            try
+            {
+
             DrawBodyMap(body, data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                
+            }
 
             // texture.LoadRawTextureData(data);
 
@@ -163,7 +172,7 @@ namespace _Scripts.Skeleton2DView
                     using (var matNew1 = new Mat())
                     {
                         Cv2.Flip(matNew, matNew1, FlipMode.X);
-                        Destroy(texture);
+                        Destroy(texture, 0.1f);
                         texture = OpenCvSharp.Unity.MatToTexture(matNew1);
                     }
                 }

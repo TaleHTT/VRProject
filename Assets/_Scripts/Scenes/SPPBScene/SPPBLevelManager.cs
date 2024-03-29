@@ -43,6 +43,7 @@ public class SPPBLevelManager : MonoBehaviour
             SPPBTestStartPanelBG.GetComponent<Image>().color = new Color(79f/255f, 242f/255f, 28f/255f, 37f/255f);
             SPPBTestStartPanel.GetComponentInChildren<TextMeshProUGUI>().text = "SPPB测试未进行";
             StartCoroutine(ShowCanvas());
+            CalPoint();
         }
     }
     
@@ -52,5 +53,10 @@ public class SPPBLevelManager : MonoBehaviour
         VRCanvas.GetComponentInChildren<TextMeshProUGUI>().text = "测试完成";
         yield return new WaitForSeconds(3);
         VRCanvas.SetActive(false);
+    }
+
+    public void CalPoint()
+    {
+        Debug.Log("CalPoint Start");
     }
 }
