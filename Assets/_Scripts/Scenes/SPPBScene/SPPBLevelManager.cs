@@ -63,7 +63,7 @@ public class SPPBLevelManager : MonoBehaviour
         ChairStandTestText.SetActive(false);
         GaitSpeedTestText = GameObject.Find("GaitSpeedTestText");
         GaitSpeedTestText.SetActive(false);
-        NoneText = GameObject.Find("FindText");
+        NoneText = GameObject.Find("NoneText");
         NoneText.SetActive(false);
         VRInfoCanvas = GameObject.Find("VRInfoCanvas");
         VRInfoCanvas.SetActive(false);
@@ -170,6 +170,7 @@ public class SPPBLevelManager : MonoBehaviour
     public void ChangeType()
     {
         string gameObjectName = testType.ToString() + "Text";
+        Debug.Log("Test Type Change to " + testType.ToString() + "Text");
         ShowTextType(gameObjectName);
     }
 
