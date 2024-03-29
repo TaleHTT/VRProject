@@ -20,10 +20,18 @@ public class PlayerPressButtonA : MonoBehaviour
 
     private void Update()
     {
-        if (input.GetStateDown(SteamVR_Input_Sources.Any))
+        if (input.GetStateDown(SteamVR_Input_Sources.Any) && !SPPBLevelManager.instance.testIsActive)
         {
-            Debug.Log("Button A is pressed");
+            //第一次按下
+            //Debug.Log("Button A is pressed");
             SPPBLevelManager.instance.MainTest();
+            SPPBLevelManager.instance.testIsActive = true;
+        }
+        else if(input.GetStateDown(SteamVR_Input_Sources.Any) && SPPBLevelManager.instance.testIsActive)
+        {
+            //第二次按下
+            SPPBLevelManager.instance.testIsActive = false;
+            SPPBLevelManager.SecondButtonPress();
         }
     }
 }

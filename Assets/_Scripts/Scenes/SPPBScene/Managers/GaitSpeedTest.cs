@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GaidSpeedTest : MonoBehaviour
+public class GaidSpeedTestManager : MonoBehaviour
 {
-    public static GaidSpeedTest instance;
+    public static GaidSpeedTestManager instance;
     public float startTime;
     public float endTime;
     public float waitTime = 0.5f;

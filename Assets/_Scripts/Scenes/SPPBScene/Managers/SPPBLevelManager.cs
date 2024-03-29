@@ -21,12 +21,19 @@ public class SPPBLevelManager : MonoBehaviour
     GameObject EndPoint;
     GameObject SPPBTestStartPanel;
     GameObject SPPBTestStartPanelBG;
+
+    public bool testIsActive = false;
+
     //private GameObject VRCanvas;
     public float testBeginTime;
     public float testEndTime;
 
     public static Action GaitSpeedTestActionStart;
     public static Action GaitSpeedTestActionEnd;
+    public static Action ChairStandTestActionStart;
+    public static Action ChairStandTestActionEnd;
+
+    public static Action SecondButtonPress;
 
     public bool isGaitSpeedTest;
     public bool isChairStandTest;
@@ -128,7 +135,15 @@ public class SPPBLevelManager : MonoBehaviour
 
     public void ChairStandTest()
     {
+        SecondButtonPress += ChairStandTestSecondButtonPress;
         StartCoroutine(IE_ChairStandTest());
+    }
+
+    //ChairStand测试中第二次按下为测试结束标志
+    private void ChairStandTestSecondButtonPress()
+    {
+        SecondButtonPress -= ChairStandTestSecondButtonPress;
+        ChairStandTestManager.instance.endTime = Time.time;
     }
 
     IEnumerator IE_ChairStandTest()
@@ -136,10 +151,13 @@ public class SPPBLevelManager : MonoBehaviour
         ChairStandTestText.SetActive(true);
         yield return new WaitForSeconds(waitTime);
         ChairStandTestText.SetActive(false);
+
+        ChairStandTestActionStart();
     }
 
     public void GaitSpeedTest()
     {
+        SecondButtonPress += GaitSpeedTestSecondButtonPress;
         StartCoroutine(IE_GaitSpeedTest());
     }
 
@@ -148,7 +166,14 @@ public class SPPBLevelManager : MonoBehaviour
         GaitSpeedTestText.SetActive(true);
         yield return new WaitForSeconds(waitTime);
         GaitSpeedTestText.SetActive(false);
+
         GaitSpeedTestActionStart();
+    }
+
+    //GaitSpeed测试中第二次按A为中断测试
+    private void GaitSpeedTestSecondButtonPress()
+    {
+        SecondButtonPress -= GaitSpeedTestSecondButtonPress;
     }
 
     private bool passOnce = false;
