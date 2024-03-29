@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,6 +16,7 @@ public class SPPBLevelManager : MonoBehaviour
     private GameObject VRCanvas;
     public float testBeginTime;
     public float testEndTime;
+    public static Action SPPBTestEnd;
 
     private void Awake()
     {
@@ -24,7 +26,6 @@ public class SPPBLevelManager : MonoBehaviour
         EndPoint = GameObject.Find("EndPoint");
         SPPBTestStartPanel = GameObject.Find("SPPBTestStartPanel");
         SPPBTestStartPanelBG = GameObject.Find("SPPBTestStartPanelBG");
-
     }
 
     private void Update()
@@ -43,6 +44,7 @@ public class SPPBLevelManager : MonoBehaviour
             SPPBTestStartPanelBG.GetComponent<Image>().color = new Color(79f/255f, 242f/255f, 28f/255f, 37f/255f);
             SPPBTestStartPanel.GetComponentInChildren<TextMeshProUGUI>().text = "SPPB测试未进行";
             StartCoroutine(ShowCanvas());
+            SPPBTestEnd();
         }
     }
     
