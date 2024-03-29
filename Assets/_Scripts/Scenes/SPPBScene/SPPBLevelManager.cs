@@ -6,8 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-enum E_SPPBTestType
+public enum E_SPPBTestType
 {
+    None,
     GaitSpeedTest,
     ChairStandTest,
     BalanceTest
@@ -20,54 +21,189 @@ public class SPPBLevelManager : MonoBehaviour
     GameObject EndPoint;
     GameObject SPPBTestStartPanel;
     GameObject SPPBTestStartPanelBG;
-    private GameObject VRCanvas;
+    //private GameObject VRCanvas;
     public float testBeginTime;
     public float testEndTime;
-    public static Action SPPBTestEnd;
+
+    public static Action GaitSpeedTestActionStart;
+    public static Action GaitSpeedTestActionEnd;
 
     public bool isGaitSpeedTest;
     public bool isChairStandTest;
     public bool isBalanceTest;
+
+    public E_SPPBTestType testType = 0;
+
+    private GameObject VRInfoCanvas;
+
+    private GameObject BalanceTestText;
+    private GameObject ChairStandTestText;
+    private GameObject GaitSpeedTestText;
+    private GameObject NoneText;
+
+    public bool changeOrSetButton = false;
+    public Action ChangeOrSetTestType;
+
+    private float waitTime = 0.5f;
     
 
     private void Awake()
     {
+        Init();
+        ChangeOrSetTestType += ChangeType;
+    }
+
+    private void Init()
+    {
         instance = this;
-        VRCanvas = GameObject.Find("VRCanvas");
+
+        BalanceTestText = GameObject.Find("BalanceTestText");
+        BalanceTestText.SetActive(false);
+        ChairStandTestText = GameObject.Find("ChairStandTestText");
+        ChairStandTestText.SetActive(false);
+        GaitSpeedTestText = GameObject.Find("GaitSpeedTestText");
+        GaitSpeedTestText.SetActive(false);
+        NoneText = GameObject.Find("FindText");
+        NoneText.SetActive(false);
+        VRInfoCanvas = GameObject.Find("VRInfoCanvas");
+        VRInfoCanvas.SetActive(false);
+
+        //VRCanvas = GameObject.Find("VRCanvas");
         VRCamera = GameObject.Find("VRCamera");
         EndPoint = GameObject.Find("EndPoint");
+
         SPPBTestStartPanel = GameObject.Find("SPPBTestStartPanel");
         SPPBTestStartPanelBG = GameObject.Find("SPPBTestStartPanelBG");
     }
 
     private void Update()
     {
-        EndDetect();
+        GaitSpeedTestEndDetect();
+    }
+
+    public void MainTest()
+    {
+        switch (testType)
+        {
+            case E_SPPBTestType.BalanceTest:
+                BalanceTest();
+                break;
+            case E_SPPBTestType.ChairStandTest:
+                ChairStandTest(); 
+                break;
+            case E_SPPBTestType.GaitSpeedTest:
+                GaitSpeedTest();
+                break;
+            case E_SPPBTestType.None:
+                None();
+                break;
+        }
+    }
+
+    #region TestDetail
+
+    public void None()
+    {
+        StartCoroutine(IE_None());
+    }
+
+    IEnumerator IE_None()
+    {
+        NoneText.SetActive(true);
+        yield return new WaitForSeconds(waitTime);
+        NoneText.SetActive(false);
+    }
+
+    public void BalanceTest()
+    {
+        StartCoroutine(IE_BalanceTest());
+    }
+
+    IEnumerator IE_BalanceTest()
+    {
+        BalanceTestText.SetActive(true);
+        yield return new WaitForSeconds(waitTime);
+        BalanceTestText.SetActive(false);
+    }
+
+    public void ChairStandTest()
+    {
+        StartCoroutine(IE_ChairStandTest());
+    }
+
+    IEnumerator IE_ChairStandTest()
+    {
+        ChairStandTestText.SetActive(true);
+        yield return new WaitForSeconds(waitTime);
+        ChairStandTestText.SetActive(false);
+    }
+
+    public void GaitSpeedTest()
+    {
+        StartCoroutine(IE_GaitSpeedTest());
+    }
+
+    IEnumerator IE_GaitSpeedTest()
+    {
+        GaitSpeedTestText.SetActive(true);
+        yield return new WaitForSeconds(waitTime);
+        GaitSpeedTestText.SetActive(false);
+        GaitSpeedTestActionStart();
     }
 
     private bool passOnce = false;
-    public void EndDetect()
+    public void GaitSpeedTestEndDetect()
     {
-        if(VRCamera.transform.position.z < EndPoint.transform.position.z && !passOnce)
+        if (VRCamera.transform.position.z < EndPoint.transform.position.z && !passOnce)
         {
             passOnce = true;
-            Debug.Log("SPPB已完成");
-            testEndTime = Time.time;    
-            SPPBTestStartPanelBG.GetComponent<Image>().color = new Color(79f/255f, 242f/255f, 28f/255f, 37f/255f);
+            Debug.Log("GaitSpeedTest已完成");
+            SPPBTestStartPanelBG.GetComponent<Image>().color = new Color(79f / 255f, 242f / 255f, 28f / 255f, 37f / 255f);
             SPPBTestStartPanel.GetComponentInChildren<TextMeshProUGUI>().text = "SPPB测试未进行";
             StartCoroutine(ShowCanvas());
-            CalPoint();
-            SPPBTestEnd();
+            GaitSpeedTestActionEnd();
         }
     }
-    
+
+    #endregion
+
+    public void ChangeType()
+    {
+        string gameObjectName = testType.ToString() + "Text";
+        ShowTextType(gameObjectName);
+    }
+
+    public void ShowTextType(string gameObjectName)
+    {
+        StartCoroutine(IE_ShowTextType(gameObjectName));
+    }
+
+    IEnumerator IE_ShowTextType(string gameObjectName)
+    {
+        
+        GameObject.Find(gameObjectName).SetActive(true);
+        yield return new WaitForSeconds(waitTime);
+        GameObject.Find(gameObjectName).SetActive(false);
+
+    }
+
     IEnumerator ShowCanvas()
     {
-        VRCanvas.SetActive(true);
-        VRCanvas.GetComponentInChildren<TextMeshProUGUI>().text = "测试完成";
+        VRInfoCanvas.SetActive(true);
+        VRInfoCanvas.GetComponentInChildren<TextMeshProUGUI>().text = "测试完成";
         yield return new WaitForSeconds(3);
-        VRCanvas.SetActive(false);
+        VRInfoCanvas.SetActive(false);
     }
+
+/*    public void Wait(float wait)
+    {
+        StartCoroutine(IE_Wait(waitTime));
+    }
+
+    IEnumerator IE_Wait(float wait)
+    {
+        yield return new WaitForSeconds(wait);
+    }*/
 
     public void CalPoint()
     {
