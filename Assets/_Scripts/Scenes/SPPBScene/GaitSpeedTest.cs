@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Timer : MonoBehaviour
+public class GaidSpeedTest : MonoBehaviour
 {
-    public static Timer instance;
+    public static GaidSpeedTest instance;
     public float startTime;
     public float endTime;
     public float waitTime = 0.5f;
@@ -17,12 +17,12 @@ public class Timer : MonoBehaviour
     private void Init()
     {
         instance = this;
-        PlayerPressButtonA.SPPBTestStart += StartTimeRecord;
-        SPPBLevelManager.SPPBTestEnd += EndTimeRecord;
-        SPPBLevelManager.SPPBTestEnd += SPPBTestEndPrint;
+        SPPBLevelManager.GaitSpeedTestActionStart += StartTimeRecord;
+        SPPBLevelManager.GaitSpeedTestActionEnd += EndTimeRecord;
+        SPPBLevelManager.GaitSpeedTestActionEnd += GaitSpeedTestEndPrint;
     }
 
-    public void SPPBTestEndPrint()
+    public void GaitSpeedTestEndPrint()
     {
         Debug.Log($"startTime: {startTime}");
         Debug.Log($"endTime: {endTime}");
