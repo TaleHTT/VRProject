@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 12165972}
   - component: {fileID: 12165973}
   m_Layer: 0
-  m_Name: timer
+  m_Name: GaitSpeedTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8308,7 +8308,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896737813}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.01727591, y: -0.7049419, z: -0.016207442, w: -0.70886934}
+  m_LocalRotation: {x: -0.017233077, y: 0.7068968, z: 0.016258296, w: 0.7069199}
   m_LocalPosition: {x: -3.1411057, y: 4.449128, z: -0.99051654}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -8321,7 +8321,7 @@ Transform:
   - {fileID: 26403115}
   - {fileID: 867034288}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.714, y: 90, z: -0.079}
 --- !u!114 &1896737817
 MonoBehaviour:
   m_ObjectHideFlags: 0

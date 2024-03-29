@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static Timer instance;
+    public float startTime;
+    public float endTime;
+    public float waitTime = 0.5f;
+
+    private void Awake()
     {
-        
+        Init();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Init()
     {
-        
+        instance = this;
+        PlayerPressButtonA.SPPBTestStart += StartTimeRecord;
+        SPPBLevelManager.SPPBTestEnd += EndTimeRecord;
+    }
+
+    public void EndTimeRecord()
+    {
+        endTime = Time.time - 0.5f;
+    }
+
+    public void StartTimeRecord()
+    {
+        StartCoroutine(Wait(waitTime));
+        startTime = Time.time;  
+    }
+
+    IEnumerator Wait(float waitForSeconds)
+    {
+        yield return new WaitForSeconds(waitForSeconds);
     }
 }

@@ -9,12 +9,14 @@ using Valve.VR;
 public class PlayerPressButtonB : MonoBehaviour
 {
     public SteamVR_Action_Boolean input;
+    public static Action WhenPlayerPressButtonB;
 
     private void Update()
     {
         if (input.GetStateDown(SteamVR_Input_Sources.Any))
         {
             Debug.Log("Button B is pressed");
+            WhenPlayerPressButtonB();
             SceneManager.LoadScene("StartScene");
         }
     }
