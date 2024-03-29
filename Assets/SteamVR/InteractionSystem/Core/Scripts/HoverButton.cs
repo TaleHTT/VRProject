@@ -14,6 +14,7 @@ namespace Valve.VR.InteractionSystem
     [RequireComponent(typeof(Interactable))]
     public class HoverButton : MonoBehaviour
     {
+        public static HoverButton instance;
         public Transform movingPart;
 
         public Vector3 localMoveDistance = new Vector3(0, -0.1f, 0);
@@ -45,7 +46,7 @@ namespace Valve.VR.InteractionSystem
         {
             if (movingPart == null && this.transform.childCount > 0)
                 movingPart = this.transform.GetChild(0);
-
+            instance = this;
             startPosition = movingPart.localPosition;
             endPosition = startPosition + localMoveDistance;
             handEnteredPosition = endPosition;

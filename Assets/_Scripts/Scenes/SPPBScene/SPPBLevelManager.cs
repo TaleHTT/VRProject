@@ -6,6 +6,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+enum E_SPPBTestType
+{
+    GaitSpeedTest,
+    ChairStandTest,
+    BalanceTest
+}
+
 public class SPPBLevelManager : MonoBehaviour
 {
     public static SPPBLevelManager instance;
@@ -17,6 +24,11 @@ public class SPPBLevelManager : MonoBehaviour
     public float testBeginTime;
     public float testEndTime;
     public static Action SPPBTestEnd;
+
+    public bool isGaitSpeedTest;
+    public bool isChairStandTest;
+    public bool isBalanceTest;
+    
 
     private void Awake()
     {

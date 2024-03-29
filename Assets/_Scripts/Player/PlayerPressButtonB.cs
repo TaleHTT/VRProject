@@ -11,6 +11,11 @@ public class PlayerPressButtonB : MonoBehaviour
     public SteamVR_Action_Boolean input;
     public static Action WhenPlayerPressButtonB;
 
+    private void Awake()
+    {
+        WhenPlayerPressButtonB = BackToStartScnee;
+    }
+
     private void Update()
     {
         if (input.GetStateDown(SteamVR_Input_Sources.Any))
@@ -19,5 +24,10 @@ public class PlayerPressButtonB : MonoBehaviour
             WhenPlayerPressButtonB();
             SceneManager.LoadScene("StartScene");
         }
+    }
+
+    public void BackToStartScnee()
+    {
+        SceneManager.LoadScene("StartScene");
     }
 }

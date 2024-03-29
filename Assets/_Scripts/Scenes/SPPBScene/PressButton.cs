@@ -7,18 +7,9 @@ using Valve.VR.InteractionSystem;
 
 public class PressButton : MonoBehaviour
 {
-    GameObject SPPBStartHint;
 
-    private void Awake()
+    public virtual void OnButtonPress(Hand hand)
     {
-        SPPBStartHint = GameObject.Find("SPPBStartHint");
-        SPPBStartHint.SetActive(false);
-    }
-
-    public void OnButtonPress()
-    {
-        //SPPBStartHint = GameObject.Find("SPPBSTartHint");
-        SPPBStartHint.gameObject.SetActive(true);
         Debug.Log("OnButton is Press");
     }
 }

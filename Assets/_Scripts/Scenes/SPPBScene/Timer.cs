@@ -19,8 +19,15 @@ public class Timer : MonoBehaviour
         instance = this;
         PlayerPressButtonA.SPPBTestStart += StartTimeRecord;
         SPPBLevelManager.SPPBTestEnd += EndTimeRecord;
+        SPPBLevelManager.SPPBTestEnd += SPPBTestEndPrint;
     }
 
+    public void SPPBTestEndPrint()
+    {
+        Debug.Log($"startTime: {startTime}");
+        Debug.Log($"endTime: {endTime}");
+    }
+    
     public void EndTimeRecord()
     {
         endTime = Time.time - 0.5f;
