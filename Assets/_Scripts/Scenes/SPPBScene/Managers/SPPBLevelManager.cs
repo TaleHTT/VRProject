@@ -32,6 +32,10 @@ public class SPPBLevelManager : MonoBehaviour
     public static Action GaitSpeedTestActionEnd;
     public static Action ChairStandTestActionStart;
     public static Action ChairStandTestActionEnd;
+    /*public static Action BalanceTestActionStart;
+    public static Action BalanceTestActionEnd;*/
+    public static Action BalanceTestAction;
+    public bool BalanceTimerIsOn;
 
     public static Action SecondButtonPress;
 
@@ -194,6 +198,7 @@ public class SPPBLevelManager : MonoBehaviour
 
     public void ChangeType()
     {
+        PlayerPressButtonA.instance.isOnBalanceTest = false;
         string gameObjectName = testType.ToString() + "Text";
         Debug.Log("Test Type Change to " + testType.ToString() + "Text");
         ShowTextType(gameObjectName);

@@ -9,5 +9,6 @@ public class BalanceTestPressButton : MonoBehaviour
         Debug.Log("BalanceTestPressButton is Press");
         SPPBLevelManager.instance.testType = E_SPPBTestType.BalanceTest;
         SPPBLevelManager.instance.ChangeOrSetTestType();
+        PlayerPressButtonA.instance.isOnBalanceTest = true;
     }
 }

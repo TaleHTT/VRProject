@@ -413,6 +413,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3bba2c36dd79242b3157dbcd876bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &78653446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 78653447}
+  - component: {fileID: 78653448}
+  m_Layer: 0
+  m_Name: BalanceTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &78653447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78653446}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 693997775}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &78653448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78653446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec3a4209e96b0940ba5defcf43266ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Part_1_StartTime: 0
+  Part_1_EndTime: 0
+  Part_2_StartTime: 0
+  Part_2_EndTime: 0
+  Part_3_StartTime: 0
+  Part_3_EndTime: 0
+  Part_1_Score: 0
+  Part_2_Score: 0
+  Part_3_Score: 0
+  inPart_1: 0
+  inPart_2: 0
+  inPart_3: 0
+  balanceTestPart: 0
+  pressCount: 0
 --- !u!1 &80502532
 GameObject:
   m_ObjectHideFlags: 0
@@ -3544,6 +3602,7 @@ Transform:
   - {fileID: 1492208407}
   - {fileID: 12165972}
   - {fileID: 681506479}
+  - {fileID: 78653447}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &759019104
@@ -8188,6 +8247,7 @@ MonoBehaviour:
   testIsActive: 0
   testBeginTime: 0
   testEndTime: 0
+  BalanceTimerIsOn: 0
   isGaitSpeedTest: 0
   isChairStandTest: 0
   isBalanceTest: 0
@@ -10361,6 +10421,8 @@ MonoBehaviour:
   input:
     actionPath: /actions/default/in/PressButton
     needsReinit: 0
+  isOnBalanceTest: 0
+  firstTimeEnterBalanceTest: 1
 --- !u!114 &1896737815
 MonoBehaviour:
   m_ObjectHideFlags: 0
