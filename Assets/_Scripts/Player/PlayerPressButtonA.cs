@@ -11,24 +11,21 @@ public class PlayerPressButtonA : MonoBehaviour
 {
     public static PlayerPressButtonA instance{ get; set; }
     public SteamVR_Action_Boolean input;
-
-    public bool isOnBalanceTest = false;
-
-
+    
     private void Awake()
     {
         instance = this;
     }
 
-    public bool firstTimeEnterBalanceTest = true;
+    //public bool firstTimeEnterBalanceTest = true;
     private void Update()
     {
-        if (isOnBalanceTest)
+        if (SPPBLevelManager.isOnBalanceTest)
         {
             if (input.GetStateDown(SteamVR_Input_Sources.Any) && BalanceTestManager.instance.pressCount == 0)
             {
                 SPPBLevelManager.instance.MainTest();
-                firstTimeEnterBalanceTest = false;
+                //firstTimeEnterBalanceTest = false;
                 SPPBLevelManager.BalanceTestAction();
                 BalanceTestManager.instance.pressCount++;
             }
@@ -41,14 +38,14 @@ public class PlayerPressButtonA : MonoBehaviour
         {
             if (input.GetStateDown(SteamVR_Input_Sources.Any) && !SPPBLevelManager.instance.testIsActive)
             {
-                //µÚÒ»´Î°´ÏÂ
+                //ï¿½ï¿½Ò»ï¿½Î°ï¿½ï¿½ï¿½
                 //Debug.Log("Button A is pressed");
                 SPPBLevelManager.instance.MainTest();
                 SPPBLevelManager.instance.testIsActive = true;
             }
             else if (input.GetStateDown(SteamVR_Input_Sources.Any) && SPPBLevelManager.instance.testIsActive)
             {
-                //µÚ¶þ´Î°´ÏÂ
+                //ï¿½Ú¶ï¿½ï¿½Î°ï¿½ï¿½ï¿½
                 SPPBLevelManager.instance.testIsActive = false;
                 SPPBLevelManager.SecondButtonPress();
             }

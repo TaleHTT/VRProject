@@ -17,6 +17,7 @@ public enum E_SPPBTestType
 public class SPPBLevelManager : MonoBehaviour
 {
     public static SPPBLevelManager instance;
+    public static bool isOnBalanceTest = false;
     GameObject VRCamera;
     GameObject EndPoint;
     GameObject SPPBTestStartPanel;
@@ -37,7 +38,7 @@ public class SPPBLevelManager : MonoBehaviour
     public static Action BalanceTestAction;
     public bool BalanceTimerIsOn;
 
-    public static Action SecondButtonPress;
+    public static Action SecondButtonPress = null;
 
     public bool isGaitSpeedTest;
     public bool isChairStandTest;
@@ -52,11 +53,21 @@ public class SPPBLevelManager : MonoBehaviour
     private GameObject GaitSpeedTestText;
     private GameObject NoneText;
     private GameObject EndTestText;
+    private TextMeshProUGUI TotalPesultScore;
 
     public bool changeOrSetButton = false;
     public Action ChangeOrSetTestType;
 
     private float waitTime = 0.5f;
+
+    public int scoreInGaitSpeedTest;
+    public int scoreInChairStandTest;
+    public int scoreInBalanceTest;
+    public int totalScore;
+
+    public bool gaitSpeedTestIsPassed = false;
+    public bool chairStandTestIsPassed = false;
+    public bool balanceTestIsPassed = false;
     
 
     private void Awake()
@@ -68,19 +79,20 @@ public class SPPBLevelManager : MonoBehaviour
     private void Init()
     {
         instance = this;
-
+        TotalPesultScore = GameObject.Find("TotalResultScore").GetComponent<TextMeshProUGUI>();
         BalanceTestText = GameObject.Find("BalanceTestText");
-        BalanceTestText.SetActive(false);
+        BalanceTestText.GetComponent<TextMeshProUGUI>().enabled = false;
         ChairStandTestText = GameObject.Find("ChairStandTestText");
-        ChairStandTestText.SetActive(false);
+        ChairStandTestText.GetComponent<TextMeshProUGUI>().enabled = false;
         GaitSpeedTestText = GameObject.Find("GaitSpeedTestText");
-        GaitSpeedTestText.SetActive(false);
+        GaitSpeedTestText.GetComponent<TextMeshProUGUI>().enabled = false;
         NoneText = GameObject.Find("NoneText");
-        NoneText.SetActive(false);
+        NoneText.GetComponent<TextMeshProUGUI>().enabled = false;
         VRInfoCanvas = GameObject.Find("VRInfoCanvas");
         VRInfoCanvas.SetActive(false);
         EndTestText = GameObject.Find("EndTestText");
-        EndTestText.SetActive(false);
+        EndTestText.GetComponent<TextMeshProUGUI>().enabled = false;
+        
 
         //VRCanvas = GameObject.Find("VRCanvas");
         VRCamera = GameObject.Find("VRCamera");
@@ -92,9 +104,30 @@ public class SPPBLevelManager : MonoBehaviour
 
     private void Update()
     {
-        GaitSpeedTestEndDetect();
+        if (testType.ToString() == "BalanceTest")
+        {
+            //Debug.Log("Change tyep to BalanceTest");
+            isOnBalanceTest = true;
+        }
+        else
+        {
+            isOnBalanceTest = false;
+        }
+        //Debug.Log(isOnBalanceTest);
+        GaitSpeedTestEndDetectInUpdate();
+        TotalScoreCalAfterThreeTestPass();
     }
 
+    public void TotalScoreCalAfterThreeTestPass()
+    {
+        Debug.Log($"{balanceTestIsPassed}  {chairStandTestIsPassed}  {gaitSpeedTestIsPassed}");
+        if (balanceTestIsPassed && chairStandTestIsPassed && gaitSpeedTestIsPassed)
+        {
+            totalScore = scoreInBalanceTest + scoreInChairStandTest + scoreInGaitSpeedTest;
+            TotalPesultScore.text = totalScore.ToString();
+        }
+    }
+    
     public void MainTest()
     {
         switch (testType)
@@ -151,13 +184,14 @@ public class SPPBLevelManager : MonoBehaviour
     {
         SecondButtonPress -= ChairStandTestSecondButtonPress;
         ChairStandTestManager.instance.endTime = Time.time;
+        ChairStandTestActionEnd();
     }
 
     IEnumerator IE_ChairStandTest()
     {
-        ChairStandTestText.SetActive(true);
+        ChairStandTestText.GetComponent<TextMeshProUGUI>().enabled = true;
         yield return new WaitForSeconds(waitTime);
-        ChairStandTestText.SetActive(false);
+        ChairStandTestText.GetComponent<TextMeshProUGUI>().enabled = false;
 
         ChairStandTestActionStart();
     }
@@ -180,22 +214,24 @@ public class SPPBLevelManager : MonoBehaviour
     //GaitSpeed测试中第二次按A为中断测试
     private void GaitSpeedTestSecondButtonPress()
     {
-        EndTest();
+        string gameObjectName = "EndTestText";
+        ShowTextType(gameObjectName);
+        testType = E_SPPBTestType.None;
         SecondButtonPress -= GaitSpeedTestSecondButtonPress;
     }
 
     private bool passOnce = false;
-    public void GaitSpeedTestEndDetect()
+    public void GaitSpeedTestEndDetectInUpdate()
     {
-        if (VRCamera.transform.position.z < EndPoint.transform.position.z && !passOnce)
+        if (VRCamera.transform.position.x <= EndPoint.transform.position.x && !passOnce)
         {
             passOnce = true;
-            Debug.Log("GaitSpeedTest已完成");
-            EndTest();
-            SPPBTestStartPanelBG.GetComponent<Image>().color = new Color(79f / 255f, 242f / 255f, 28f / 255f, 37f / 255f);
-            SPPBTestStartPanel.GetComponentInChildren<TextMeshProUGUI>().text = "SPPB测试未进行";
-            StartCoroutine(ShowCanvas());
+           //EndTest();
+            /*SPPBTestStartPanelBG.GetComponent<Image>().color = new Color(79f / 255f, 242f / 255f, 28f / 255f, 37f / 255f);
+            SPPBTestStartPanel.GetComponentInChildren<TextMeshProUGUI>().text = "SPPB测试未进行";*/
+            //StartCoroutine(ShowCanvas());
             GaitSpeedTestActionEnd();
+            SPPBLevelManager.instance.gaitSpeedTestIsPassed = true;
         }
     }
 
@@ -203,7 +239,7 @@ public class SPPBLevelManager : MonoBehaviour
 
     public void ChangeType()
     {
-        PlayerPressButtonA.instance.isOnBalanceTest = false;
+        isOnBalanceTest = false;
         string gameObjectName = testType.ToString() + "Text";
         Debug.Log("Test Type Change to " + testType.ToString() + "Text");
         ShowTextType(gameObjectName);
@@ -213,6 +249,7 @@ public class SPPBLevelManager : MonoBehaviour
     {
         string gameObjectName = "EndTestText";
         ShowTextType(gameObjectName);
+        testType = E_SPPBTestType.None;
     }
 
     public void ShowTextType(string gameObjectName)
@@ -222,10 +259,10 @@ public class SPPBLevelManager : MonoBehaviour
 
     IEnumerator IE_ShowTextType(string gameObjectName)
     {
-        
-        GameObject.Find(gameObjectName).SetActive(true);
+
+        GameObject.Find(gameObjectName).GetComponent<TextMeshProUGUI>().enabled = true;
         yield return new WaitForSeconds(waitTime);
-        GameObject.Find(gameObjectName).SetActive(false);
+        GameObject.Find(gameObjectName).GetComponent<TextMeshProUGUI>().enabled = false;
 
     }
 

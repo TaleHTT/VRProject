@@ -28,8 +28,8 @@ namespace Valve.VR.InteractionSystem.Sample
         void Awake()
         {
             var textMeshs = GetComponentsInChildren<TextMesh>();
-            generalText = textMeshs[0];
-            hoveringText = textMeshs[1];
+            /*generalText = textMeshs[0];
+            hoveringText = textMeshs[1];*/
 
             /*generalText.text = "No Hand Hovering";
             hoveringText.text = "Hovering: False";*/

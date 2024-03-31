@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows;
@@ -15,7 +16,7 @@ public enum E_BalanceTestPart
 }
 
 /// <summary>
-/// ÒòÎª¸ÃÀà¼ì²â·½Ê½ºÍÁíÍâÁ½¸öÀà²»Í¬£¬ÊµÏÖ±È½ÏÌØÊâ
+/// ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½â·½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à²»Í¬ï¿½ï¿½Êµï¿½Ö±È½ï¿½ï¿½ï¿½ï¿½ï¿½
 /// </summary>
 public class BalanceTestManager : MonoBehaviour
 {
@@ -30,21 +31,25 @@ public class BalanceTestManager : MonoBehaviour
     public int Part_1_Score;
     public int Part_2_Score;
     public int Part_3_Score;
+    public int score = 0;
 
     public bool inPart_1 = false;
     public bool inPart_2 = false;
     public bool inPart_3 = false;
 
     public E_BalanceTestPart balanceTestPart;
+    
+    private TextMeshProUGUI BalanceTestScore;
 
     //private bool isOnTimeRecord = false;
 
-    public int pressCount;
+    public int pressCount = 0;
 
     private void Awake()
     {
         instance = this;
         SPPBLevelManager.BalanceTestAction += BalanceTestStart;
+        BalanceTestScore = GameObject.Find("BalanceTestScore").GetComponent<TextMeshProUGUI>();
     }
 
     private void Update()
@@ -59,7 +64,7 @@ public class BalanceTestManager : MonoBehaviour
 
     public void BalanceTestDetect()
     {
-        if(PlayerPressButtonA.instance.isOnBalanceTest)
+        if(SPPBLevelManager.isOnBalanceTest)
         {
             /*if (pressCount == 0)
             {
@@ -111,7 +116,7 @@ public class BalanceTestManager : MonoBehaviour
                     if (!inPart_1)
                     {
                         Debug.Log("Part_1 Start");
-                        TimerStart();
+                        Timer.instance.TimerDownStart(10f);
                         Part_1_StartTime = Time.time;
                         inPart_1 = true;
                     }
@@ -126,13 +131,14 @@ public class BalanceTestManager : MonoBehaviour
                         {
                             Part_1_Score = 1;
                         }
+                        score += Part_1_Score;
                     }
                     break;
                 case 3:
                     if (!inPart_2)
                     {
                         Debug.Log("Part_2 Start");
-                        TimerStart();
+                        Timer.instance.TimerDownStart(10f);
                         Part_2_StartTime = Time.time;
                         inPart_2 = true;
                     }
@@ -147,13 +153,14 @@ public class BalanceTestManager : MonoBehaviour
                         {
                             Part_2_Score = 1;
                         }
+                        score += Part_2_Score;
                     }
                     break;
                 case 5:
                     if (!inPart_3)
                     {
                         Debug.Log("Part_3 Start");
-                        TimerStart();
+                        Timer.instance.TimerDownStart(10f);
                         Part_3_StartTime = Time.time;
                         inPart_3 = true;
                     }
@@ -170,15 +177,21 @@ public class BalanceTestManager : MonoBehaviour
                         }
                         else if (Part_3_EndTime - Part_3_StartTime > 3f)
                         {
-                            Part_3_Score = 0;
+                            Part_3_Score = 1;
                         }
                         else
                         {
-                            Part_3_Score = 1;
+                            Part_3_Score = 0;
                         }
+
+                        score += Part_3_Score;
+                        SPPBLevelManager.instance.scoreInBalanceTest = score;
+                        //Debug.Log(score);
                         pressCount = 0;
-                        PlayerPressButtonA.instance.isOnBalanceTest = false;
-                        SPPBLevelManager.instance.EndTest();
+                        SPPBLevelManager.instance.balanceTestIsPassed = true;
+                        SPPBLevelManager.isOnBalanceTest = false;
+                        BalanceTestScore.text = SPPBLevelManager.instance.scoreInBalanceTest.ToString();
+                        //SPPBLevelManager.instance.EndTest();
                     }
                     break;
             }
@@ -186,26 +199,30 @@ public class BalanceTestManager : MonoBehaviour
     }
 
 
-    public float totalTime = 10f; // ×Ü¼ÆÊ±Ê±¼ä
-    private float currentTime; // µ±Ç°¼ÆÊ±Ê±¼ä
-    private TextMeshProUGUI timerText; // ¼ÆÊ±Æ÷µÄÎÄ±¾×é¼þ
+    /*public float totalTime = 10f; // ï¿½Ü¼ï¿½Ê±Ê±ï¿½ï¿½
+    private float currentTime; // ï¿½ï¿½Ç°ï¿½ï¿½Ê±Ê±ï¿½ï¿½
+    private TextMeshProUGUI timerText; // ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½
 
     public void TimerStart()
     {
-        timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
-        currentTime = totalTime;
+        timerText.gameObject.SetActive(false);
+        timerText.gameObject.SetActive(true);
         StartCoroutine(UpdateTimer());
     }
 
     private IEnumerator UpdateTimer()
     {
+        currentTime = totalTime;
         while (currentTime > 0)
         {
+            if(PlayerPressButtonA.instance.input.GetStateDown(SteamVR_Input_Sources.Any))
+            {
+                break;
+            }
             currentTime -= Time.deltaTime;
-            timerText.text = currentTime.ToString("F2"); // ½«¼ÆÊ±Æ÷Ê±¼äÏÔÊ¾ÎªÁ½Î»Ð¡Êý
+            timerText.text = currentTime.ToString("F2"); // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¾Îªï¿½ï¿½Î»Ð¡ï¿½ï¿½
             yield return null;
         }
-
         timerText.text = "Time's up!";
-    }
+    }*/
 }
