@@ -32,6 +32,10 @@ public class SPPBLevelManager : MonoBehaviour
     public static Action GaitSpeedTestActionEnd;
     public static Action ChairStandTestActionStart;
     public static Action ChairStandTestActionEnd;
+    /*public static Action BalanceTestActionStart;
+    public static Action BalanceTestActionEnd;*/
+    public static Action BalanceTestAction;
+    public bool BalanceTimerIsOn;
 
     public static Action SecondButtonPress;
 
@@ -47,6 +51,7 @@ public class SPPBLevelManager : MonoBehaviour
     private GameObject ChairStandTestText;
     private GameObject GaitSpeedTestText;
     private GameObject NoneText;
+    private GameObject EndTestText;
 
     public bool changeOrSetButton = false;
     public Action ChangeOrSetTestType;
@@ -74,6 +79,8 @@ public class SPPBLevelManager : MonoBehaviour
         NoneText.SetActive(false);
         VRInfoCanvas = GameObject.Find("VRInfoCanvas");
         VRInfoCanvas.SetActive(false);
+        EndTestText = GameObject.Find("EndTestText");
+        EndTestText.SetActive(false);
 
         //VRCanvas = GameObject.Find("VRCanvas");
         VRCamera = GameObject.Find("VRCamera");
@@ -173,6 +180,7 @@ public class SPPBLevelManager : MonoBehaviour
     //GaitSpeed测试中第二次按A为中断测试
     private void GaitSpeedTestSecondButtonPress()
     {
+        EndTest();
         SecondButtonPress -= GaitSpeedTestSecondButtonPress;
     }
 
@@ -183,6 +191,7 @@ public class SPPBLevelManager : MonoBehaviour
         {
             passOnce = true;
             Debug.Log("GaitSpeedTest已完成");
+            EndTest();
             SPPBTestStartPanelBG.GetComponent<Image>().color = new Color(79f / 255f, 242f / 255f, 28f / 255f, 37f / 255f);
             SPPBTestStartPanel.GetComponentInChildren<TextMeshProUGUI>().text = "SPPB测试未进行";
             StartCoroutine(ShowCanvas());
@@ -194,8 +203,15 @@ public class SPPBLevelManager : MonoBehaviour
 
     public void ChangeType()
     {
+        PlayerPressButtonA.instance.isOnBalanceTest = false;
         string gameObjectName = testType.ToString() + "Text";
         Debug.Log("Test Type Change to " + testType.ToString() + "Text");
+        ShowTextType(gameObjectName);
+    }
+
+    public void EndTest()
+    {
+        string gameObjectName = "EndTestText";
         ShowTextType(gameObjectName);
     }
 

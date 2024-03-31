@@ -12,26 +12,47 @@ public class PlayerPressButtonA : MonoBehaviour
     public static PlayerPressButtonA instance{ get; set; }
     public SteamVR_Action_Boolean input;
 
+    public bool isOnBalanceTest = false;
+
 
     private void Awake()
     {
         instance = this;
     }
 
+    public bool firstTimeEnterBalanceTest = true;
     private void Update()
     {
-        if (input.GetStateDown(SteamVR_Input_Sources.Any) && !SPPBLevelManager.instance.testIsActive)
+        if (isOnBalanceTest)
         {
-            //第一次按下
-            //Debug.Log("Button A is pressed");
-            SPPBLevelManager.instance.MainTest();
-            SPPBLevelManager.instance.testIsActive = true;
+            if (input.GetStateDown(SteamVR_Input_Sources.Any) && BalanceTestManager.instance.pressCount == 0)
+            {
+                SPPBLevelManager.instance.MainTest();
+                firstTimeEnterBalanceTest = false;
+                SPPBLevelManager.BalanceTestAction();
+                BalanceTestManager.instance.pressCount++;
+            }
+            else if(input.GetStateDown(SteamVR_Input_Sources.Any))
+            {
+                BalanceTestManager.instance.pressCount++;
+            }
         }
-        else if(input.GetStateDown(SteamVR_Input_Sources.Any) && SPPBLevelManager.instance.testIsActive)
+        else
         {
-            //第二次按下
-            SPPBLevelManager.instance.testIsActive = false;
-            SPPBLevelManager.SecondButtonPress();
+            if (input.GetStateDown(SteamVR_Input_Sources.Any) && !SPPBLevelManager.instance.testIsActive)
+            {
+                //第一次按下
+                //Debug.Log("Button A is pressed");
+                SPPBLevelManager.instance.MainTest();
+                SPPBLevelManager.instance.testIsActive = true;
+            }
+            else if (input.GetStateDown(SteamVR_Input_Sources.Any) && SPPBLevelManager.instance.testIsActive)
+            {
+                //第二次按下
+                SPPBLevelManager.instance.testIsActive = false;
+                SPPBLevelManager.SecondButtonPress();
+            }
         }
+        
     }
 }
