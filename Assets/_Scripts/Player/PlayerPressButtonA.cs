@@ -25,11 +25,16 @@ public class PlayerPressButtonA : MonoBehaviour
     {
         if (isOnBalanceTest)
         {
-            if (input.GetStateDown(SteamVR_Input_Sources.Any) && firstTimeEnterBalanceTest)
+            if (input.GetStateDown(SteamVR_Input_Sources.Any) && BalanceTestManager.instance.pressCount == 0)
             {
                 SPPBLevelManager.instance.MainTest();
                 firstTimeEnterBalanceTest = false;
                 SPPBLevelManager.BalanceTestAction();
+                BalanceTestManager.instance.pressCount++;
+            }
+            else if(input.GetStateDown(SteamVR_Input_Sources.Any))
+            {
+                BalanceTestManager.instance.pressCount++;
             }
         }
         else
