@@ -36,6 +36,52 @@ RectTransform:
   m_AnchoredPosition: {x: -1190, y: 1120}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1351733101932966548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3364336631158101903}
+  - component: {fileID: 1058633312158816609}
+  m_Layer: 0
+  m_Name: HSSCNetwork
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3364336631158101903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351733101932966548}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0011979359, y: 0.9956255, z: 0.09304719, w: -0.008415448}
+  m_LocalPosition: {x: -0.0013408863, y: -0.00020432562, z: 0}
+  m_LocalScale: {x: 3428.012, y: 3428.0151, z: 3428.011}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7092650418007095987}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1058633312158816609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351733101932966548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7837e0a7359395c4e92442582aac620e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pulse: {fileID: 6642354656404139760}
+  oxy: {fileID: 8639003349204636287}
 --- !u!1 &1456599489079262310
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9140326020658608216}
   m_Layer: 0
-  m_Name: 02
+  m_Name: OxyPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,6 +422,7 @@ RectTransform:
   - {fileID: 428804346553076382}
   - {fileID: 9140326020658608216}
   - {fileID: 4718779769581336922}
+  - {fileID: 3364336631158101903}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -504,7 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.49307728, g: 1, b: 0.4575472, a: 0.078431375}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.41960785}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -533,7 +580,7 @@ GameObject:
   - component: {fileID: 3108489339698397647}
   - component: {fileID: 5869117880429714845}
   m_Layer: 0
-  m_Name: Text (TMP) (1)
+  m_Name: OxyLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -667,7 +714,7 @@ GameObject:
   - component: {fileID: 9154269070866045128}
   - component: {fileID: 2005465999638038074}
   m_Layer: 0
-  m_Name: Text01
+  m_Name: Pulse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -799,7 +846,7 @@ GameObject:
   m_Component:
   - component: {fileID: 428804346553076382}
   m_Layer: 0
-  m_Name: 01
+  m_Name: PulsePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -838,7 +885,7 @@ GameObject:
   - component: {fileID: 5415442603802014762}
   - component: {fileID: 6019441094171642443}
   m_Layer: 0
-  m_Name: Text02
+  m_Name: Oxy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -77,6 +77,15 @@ namespace SocketWorker
         public string Right_Wrist_Deviation { set; get; }
     }
 
+    public class HSSCData
+    {
+        public List<int> ac_data { get; set; }
+        public int spo2 { get; set; }
+        public int bk { get; set; }
+        public int heartrate { get; set; }
+        public List<int> rsv { get; set; }
+    }
+
     public class Response
     {
         public string Class;
@@ -99,6 +108,12 @@ namespace SocketWorker
     {
         public string Class;
         public ManualSetting Data;
+    }
+
+    public class HSSCResponse
+    {
+        public string Class;
+        public HSSCData Data;
     }
 
     public class SocketWorker : MonoBehaviour
